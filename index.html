@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LiftMetric – Pro Weightlifting Tournament Scoring System</title>
+  <link rel="icon" type="image/png" href="faviconnewicon.png">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <!-- Lucide icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+   body {
+     font-family: 'Orbitron', sans-serif;
+     background:
+       linear-gradient(to bottom, #ff0000, #000000),
+       url('bg.png') no-repeat center top fixed;
+     background-size: cover;
+     background-blend-mode: overlay;
+     color: white;
+   }
+   body::before {
+     content: "";
+     position: fixed;
+     top: 0;
+     left: 0;
+     z-index: -1;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 0, 0, 0.65);
+   }
+   .top-gradient {
+     position: absolute;
+     top: 0;
+     left: 0;
+     height: 200px;
+     width: 100%;
+     background: linear-gradient(to bottom, #ff0000 0%, #000000 100%);
+     z-index: -1;
+   }
+   .glow {
+     text-shadow: 0 0 8px #ff4444, 0 0 12px #ff2222;
+   }
+   .neon-button {
+     background: linear-gradient(90deg, #ff0000, #000000);
+     border: 2px solid #000;
+     box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+     transition: all 0.4s ease;
+     position: relative;
+     overflow: hidden;
+   }
+   .neon-button::before {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: -75%;
+     width: 50%;
+     height: 100%;
+     background: rgba(255, 255, 255, 0.2);
+     transform: skewX(-20deg);
+     transition: 0.75s;
+   }
+   .neon-button:hover::before {
+     left: 125%;
+   }
+   .neon-button:hover {
+     background: linear-gradient(270deg, #ff0000, #000000);
+     box-shadow: 0 0 15px #ff3333, 0 0 20px #990000;
+     transform: scale(1.05);
+   }
+   .highlight-box {
+     border: 1px solid rgba(255, 0, 0, 0.4);
+     border-radius: 1rem;
+     padding: 2rem;
+     background-color: rgba(0, 0, 0, 0.4);
+   }
+   ul li {
+     background: rgba(255, 255, 255, 0.05);
+     padding: 0.5rem 1rem;
+     border-radius: 0.5rem;
+   }
+   section {
+     background: transparent !important;
+     backdrop-filter: blur(2px);
+     padding-top: 5rem;
+     padding-bottom: 5rem;
+   }
+   .fire-favicon {
+     animation: firePulse 1.2s infinite;
+     filter: drop-shadow(0 0 8px #ff4500) drop-shadow(0 0 15px #ff0000);
+   }
+   @keyframes firePulse {
+     0%, 100% { transform: scale(1); opacity: 1; }
+     50% { transform: scale(1.08); opacity: 0.9; }
+   }
+
+   /* Glitch effect for LiftMetric */
+   .glitch {
+     position: relative;
+     color: #ff4444;
+     font-weight: 900;
+     font-size: 3rem;
+     letter-spacing: 0.05em;
+     animation: flicker 3s infinite;
+   }
+   .glitch::before,
+   .glitch::after {
+     content: attr(data-text);
+     position: absolute;
+     left: 0;
+     right: 0;
+     opacity: 0.8;
+     clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+   }
+   .glitch::before {
+     animation: glitchTop 2s infinite;
+     color: #ff2222;
+     z-index: -1;
+     top: -2px;
+     text-shadow: -2px 0 red;
+   }
+   .glitch::after {
+     animation: glitchBottom 2s infinite;
+     color: #ff6666;
+     z-index: -1;
+     top: 2px;
+     clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+     text-shadow: 2px 0 #ff9999;
+   }
+
+   @keyframes glitchTop {
+     0%, 100% { transform: translate(0); }
+     20% { transform: translate(-2px, -2px); }
+     40% { transform: translate(-2px, 2px); }
+     60% { transform: translate(2px, -2px); }
+     80% { transform: translate(2px, 2px); }
+   }
+   @keyframes glitchBottom {
+     0%, 100% { transform: translate(0); }
+     20% { transform: translate(2px, 2px); }
+     40% { transform: translate(2px, -2px); }
+     60% { transform: translate(-2px, 2px); }
+     80% { transform: translate(-2px, -2px); }
+   }
+   @keyframes flicker {
+     0%, 100% { opacity: 1; }
+     50% { opacity: 0.85; }
+   }
+
+   /* Payment badges/trust signals styling */
+   .payment-badges {
+     display: flex;
+     justify-content: center;
+     gap: 1.5rem;
+     margin-top: 1rem;
+     filter: drop-shadow(0 0 5px #ff0000);
+   }
+   .payment-badges img {
+     height: 40px;
+     object-fit: contain;
+   }
+
+   /* FAQ styles */
+   details {
+     background: rgba(255, 255, 255, 0.1);
+     padding: 1rem;
+     border-radius: 0.5rem;
+     margin-bottom: 1rem;
+     cursor: pointer;
+     transition: background-color 0.3s ease;
+   }
+   details[open] {
+     background: rgba(255, 0, 0, 0.3);
+   }
+   summary {
+     font-weight: 700;
+     font-size: 1.1rem;
+     outline: none;
+   }
+
+   .glow-effect {
+  box-shadow: 0 0 25px #ff4b2b, 0 0 50px #ff416c;
+  animation: steadyGlow 3s ease-in-out infinite;
+}
+
+@keyframes steadyGlow {
+  0%, 100% {
+    box-shadow: 0 0 25px #ff4b2b, 0 0 50px #ff416c;
+  }
+  50% {
+    box-shadow: 0 0 40px #ff4b2b, 0 0 70px #ff416c;
+  }
+}
+
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- Logo -->
+  <div class="flex justify-center mt-12">
+    <img src="faviconnewicon.png" alt="LiftMetric Logo" class="w-32 h-32 fire-favicon" />
+  </div>
+
+  <!-- Hero -->
+  <section class="text-center px-4">
+ <img
+  src="lifttopic.png"
+  alt="LiftMetric"
+  class="mx-auto mt-6 max-w-full w-[1000px] glow"
+/>
+
+
+<br>
+    <p class="text-2xl md:text-2xl mt-2 glow">Pro Weightlifting Tournament Scoring System</p>
+    <p class="mt-4 text-red-300 glow">🔥 Real-time scoring, blazing-fast leaderboard, esports-inspired visuals</p>
+    <br>
+    <br>
+    <br>
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sliitshalini@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="neon-button text-white py-4 px-10 rounded-full text-2xl font-extrabold shadow-xl transition transform hover:scale-105">Buy Just $999</a>
+  </section>
+
+ <video
+  id="demo"
+  autoplay
+  playsinline
+  controls
+  class="mx-auto rounded-2xl shadow-2xl border-4 border-red-600 glow-effect"
+  style="width: 800px; max-width: 90%;"
+>
+  <source src="demo.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+
+<script>
+  const video = document.getElementById('demoVideo');
+  video.addEventListener('ended', () => {
+    video.currentTime = 0;
+    video.play();
+  });
+</script>
+
+<!-- Overview -->
+<section class="px-6 max-w-5xl mx-auto text-center">
+  <h2 class="text-4xl font-bold text-red-400 mb-6 glow">🏋️ About the System</h2>
+
+  <div class="rounded-2xl shadow-lg highlight-box p-8 md:p-10 text-left space-y-6">
+    <p class="text-gray-200 text-2xl leading-relaxed">
+      LiftMetric is a blazing-fast, pro-grade weightlifting tournament system crafted for modern competitive needs. 
+      Judges, athletes, and organizers get real-time results, automated scores, and a smooth interface that feels like a championship arena.
+    </p>
+
+    <p class="text-yellow-300 font-semibold text-lg glow text-center">
+      🔥 One-Time Payment. Full Source Code. Resell & Rebrand Allowed 🔥
+    </p>
+  </div>
+</section>
+
+
+ <!-- Why Buy -->
+  <section class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold text-yellow-300 glow mb-8">💡 Why You Should Purchase LiftMetric</h2>
+    <div class="grid md:grid-cols-2 gap-8 highlight-box text-2xl">
+      <ul class="space-y-4 text-left">
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Full source code included — complete freedom to modify</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Resale & white-label rights — earn from your copy</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>No subscription — one-time payment, lifetime value</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Built with top modern stacks (Next.js, Firebase, Electron)</span>
+        </li>
+      </ul>
+      <ul class="space-y-4 text-left">
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Designed like an esports game UI — flashy, attractive, elite</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Real-time sync across judges and athlete terminals</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>Free support for setup within 1st week after purchase</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+          </svg>
+          <span>No external dependencies or licensing traps</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="max-w-6xl mx-auto px-6">
+    <h2 class="text-4xl font-bold text-center mb-10 text-red-400 glow">🚀 Key Highlights</h2>
+    <div class="grid md:grid-cols-2 gap-12 text-2xl leading-relaxed highlight-box">
+      <div>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Built with Next.js 14, React, Firebase, and Electron</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Real-time scoring + live updating leaderboard</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Unlimited matches per user with Firebase isolation</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Esports-inspired design with animations & pixel fonts</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>White-label license – fully brandable + resale rights</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Firebase Authentication for secure access</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Auto-calculated scores from snatch + clean & jerk</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            </svg>
+            <span>Designed for desktop, tablet, and mobile devices</span>
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center justify-center">
+        <img src="sss.png" alt="LiftMetric Screenshot" class="rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Bonus -->
+  <section class="text-white text-center px-4">
+    <h3 class="text-4xl font-bold mb-6 glow">🎁 Premium Bonuses Included</h3>
+    <div class="space-y-3 text-2xl highlight-box mx-auto max-w-2xl">
+      <p class="flex items-center gap-3 justify-center">
+       
+        One-on-one onboarding + support for your first tournament
+      </p>
+      <p class="flex items-center gap-3 justify-center">
+       
+        Free logo/branding customization help
+      </p>
+      <p class="flex items-center gap-3 justify-center">
+       
+        Commercial license: Sell or reuse in your own business
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="max-w-4xl mx-auto px-6 text-center">
+    <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">❓ Frequently Asked Questions</h2>
+    <div class="highlight-box rounded-xl p-6 bg-black/50 text-left text-2xl">
+      <details>
+        <summary>Is there a subscription fee?</summary>
+        <p>No, LiftMetric is a one-time payment with lifetime use and no recurring fees.</p>
+      </details>
+      <details>
+        <summary>Can I customize the branding?</summary>
+        <p>Yes! You get full white-label rights and support for branding customization.</p>
+      </details>
+      <details>
+        <summary>Does it support multiple matches?</summary>
+        <p>Absolutely, you can run unlimited matches isolated by Firebase per user.</p>
+      </details>
+      <details>
+        <summary>What platforms is LiftMetric compatible with?</summary>
+        <p>It works on desktop, tablet, and mobile devices seamlessly.</p>
+      </details>
+      <details>
+        <summary>How do I get support?</summary>
+        <p>We offer one-on-one onboarding and dedicated support for your first event.</p>
+      </details>
+    </div>
+  </section>
+
+<!-- Contact / Support -->
+<section class="max-w-4xl mx-auto px-6 text-center">
+  <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">📞 Contact & Support</h2>
+  <p class="mb-3 text-lg text-gray-300">Have questions or want a demo? Reach out to us anytime!</p>
+  <br>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sliitshalini@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="neon-button text-white py-4 px-10 rounded-full text-2xl font-extrabold shadow-xl transition transform hover:scale-105">Email Support</a>
+</section>
+
+<!-- Payment Badges / Trust Signals -->
+<section class="max-w-4xl mx-auto px-6  py-1 text-center">
+   <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">💵 Payment Methods</h2>
+  <div class="payment-badges flex justify-center gap-4 flex-wrap items-center">
+    <img src="visa.png" alt="Visa"  />
+    <img src="master.png" alt="MasterCard" />
+    <img src="paypal.png" alt="PayPal"  />
+  </div>
+</section>
+<br>
+<br>
+<!-- License & Terms -->
+<section class="max-w-4xl mx-auto px-10  py-1 text-center">
+  <p class="text-gray-400 text-lg mb-4">
+    <a href="https://drive.google.com/file/d/1x7avUwFNwPPymqmdO4h4ESSuVQ0hauFR/view?usp=sharing" target="_blank" class="underline hover:text-red-400">
+      License & Terms of Use
+    </a>
+  </p>
+</section>
+
+<!-- Buy Section -->
+<section id="buy" class="section text-center mb-6">
+  <h2 class="text-5xl sm:text-4xl font-bold mb-4 text-red-400 glow">Get LiftMetric Now</h2>
+  <p class="mb-4 text-lg text-gray-200">Unlock lifetime access + full source code and resale rights. Limited offer.</p>
+  <br>
+  <br>
+  <br>
+ <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sliitshalini@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer"
+   class="neon-button text-white py-4 px-10 rounded-full text-2xl font-extrabold shadow-xl transition transform hover:scale-105">
+  Buy for Just $999
+</a>
+
+  <br>
+  <br>
+  <p class="mt-4 text-lg text-gray-300">
+    Questions? <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sliitshalini@gmail.com"
+   target="_blank"
+   rel="noopener noreferrer" class="underline">sliitshalini@gmail.com</a>
+  </p>
+</section>
+
+
+  <!-- Footer -->
+  <footer class="text-center py-6 text-gray-400 text-sm border-t border-gray-700">
+    © 2025 LiftMetric. Built with ❤️ by Shalini Archana Vidanaarachchi.
+  </footer>
+
+  <script>
+    // Initialize Lucide icons (if needed)
+    lucide.createIcons();
+  </script>
+
+</body>
+</html>
