@@ -226,13 +226,19 @@
  <video
   id="demoVideo"
   playsinline
+  autoplay
+  muted
+  loop
   controls
+  controlslist="nodownload"
+  oncontextmenu="return false;"
   class="mx-auto rounded-2xl shadow-2xl border-4 border-red-600 glow-effect"
   style="width: 800px; max-width: 90%;"
 >
   <source src="demo.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
 
 
 <script>
