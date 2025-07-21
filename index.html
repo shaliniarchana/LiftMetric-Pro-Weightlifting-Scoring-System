@@ -224,8 +224,7 @@
   </section>
 
  <video
-  id="demo"
-  autoplay
+  id="demoVideo"
   playsinline
   controls
   class="mx-auto rounded-2xl shadow-2xl border-4 border-red-600 glow-effect"
@@ -234,6 +233,28 @@
   <source src="demo.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
+
+
+<script>
+  const video = document.getElementById('demoVideo');
+
+  // Start video muted and paused
+  video.muted = true;
+  video.pause();
+
+  function playVideoWithSound() {
+    video.muted = false; // Unmute
+    video.play();        // Play video
+
+    // Remove event listeners after first interaction
+    window.removeEventListener('scroll', playVideoWithSound);
+    window.removeEventListener('click', playVideoWithSound);
+  }
+
+  // Listen for scroll or click to trigger video play with sound
+  window.addEventListener('scroll', playVideoWithSound);
+  window.addEventListener('click', playVideoWithSound);
+</script>
 
 
 <script>
