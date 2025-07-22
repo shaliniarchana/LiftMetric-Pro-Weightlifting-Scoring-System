@@ -18,38 +18,53 @@
   <link rel="icon" type="image/png" href="faviconnewicon.png">
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-  <!-- Lucide icons CDN -->
+  
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-   body {
-     font-family: 'Orbitron', sans-serif;
-     background:
-       linear-gradient(to bottom, #ff0000, #000000),
-       url('bg.png') no-repeat center top fixed;
-     background-size: cover;
-     background-blend-mode: overlay;
-     color: white;
-   }
-   body::before {
-     content: "";
-     position: fixed;
-     top: 0;
-     left: 0;
-     z-index: -1;
-     width: 100%;
-     height: 100%;
-     background: rgba(0, 0, 0, 0.65);
-   }
-   .top-gradient {
-     position: absolute;
-     top: 0;
-     left: 0;
-     height: 200px;
-     width: 100%;
-     background: linear-gradient(to bottom, #ff0000 0%, #000000 100%);
-     z-index: -1;
-   }
+ body {
+    font-family: 'Orbitron', sans-serif;
+    color: white;
+    background: 
+      linear-gradient(to bottom, #ff0000, #000000),
+      url('bg.png') no-repeat center top fixed;
+    background-size: cover;
+    background-blend-mode: overlay;
+  }
+
+  /* Dark overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+  }
+
+  /* Top red-black gradient */
+  .top-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 200px;
+    width: 100%;
+    background: linear-gradient(to bottom, #ff0000 0%, #000000 100%);
+    z-index: -1;
+  }
+
+  /* 🔄 Change background image for vertical (mobile portrait) view */
+  @media only screen and (orientation: portrait) {
+    body {
+      background:
+        linear-gradient(to bottom, #ff0000, #000000),
+        url('vertical.png') no-repeat center top fixed;
+      background-size: cover;
+      background-blend-mode: overlay;
+    }
+  }
    .glow {
      text-shadow: 0 0 8px #ff4444, 0 0 12px #ff2222;
    }
@@ -159,7 +174,6 @@
      50% { opacity: 0.85; }
    }
 
-   /* Payment badges/trust signals styling */
    .payment-badges {
      display: flex;
      justify-content: center;
@@ -195,7 +209,11 @@
   animation: steadyGlow 3s ease-in-out infinite;
 }
 
+ .neon-red-black {
+    filter: drop-shadow(0 0 3px #ff0000) drop-shadow(0 0 6px #000000);
+  }
 
+ 
 
 @keyframes steadyGlow {
   0%, 100% {
@@ -210,12 +228,11 @@
 </head>
 <body class="text-white">
 
-  <!-- Logo -->
+
   <div class="flex justify-center mt-12">
     <img src="faviconnewicon.png" alt="LiftMetric Logo" class="w-32 h-32 fire-favicon" />
   </div>
 
-  <!-- Hero -->
   <section class="text-center px-4">
  <img
   src="lifttopic.png"
@@ -257,20 +274,20 @@
 <script>
   const video = document.getElementById('demoVideo');
 
-  // Start video muted and paused
+ 
   video.muted = true;
   video.pause();
 
   function playVideoWithSound() {
-    video.muted = false; // Unmute
-    video.play();        // Play video
+    video.muted = false; 
+    video.play();        
 
-    // Remove event listeners after first interaction
+
     window.removeEventListener('scroll', playVideoWithSound);
     window.removeEventListener('click', playVideoWithSound);
   }
 
-  // Listen for scroll or click to trigger video play with sound
+
   window.addEventListener('scroll', playVideoWithSound);
   window.addEventListener('click', playVideoWithSound);
 </script>
@@ -284,145 +301,319 @@
   });
 </script>
 
-<!-- Overview -->
+
 <section class="px-6 max-w-5xl mx-auto text-center">
   <h2 class="text-4xl font-bold text-red-400 mb-6 glow">🏋️ About the System</h2>
 
-  <div class="rounded-2xl shadow-lg highlight-box p-8 md:p-10 text-left space-y-6">
+  <div class="rounded-2xl shadow-lg highlight-box p-8 md:p-10 text-center space-y-6">
     <p class="text-gray-200 text-2xl leading-relaxed">
       LiftMetric is a blazing-fast, pro-grade weightlifting tournament system crafted for modern competitive needs. 
       Judges, athletes, and organizers get real-time results, automated scores, and a smooth interface that feels like a championship arena.
     </p>
 
-    <p class="text-yellow-300 font-semibold text-lg glow text-center">
+    <p class="text-yellow-300 font-semibold text-lg glow">
       🔥 One-Time Payment. Full Source Code. Resell & Rebrand Allowed 🔥
     </p>
   </div>
 </section>
 
 
- <!-- Why Buy -->
-  <section class="max-w-5xl mx-auto px-6 text-center">
-    <h2 class="text-4xl font-bold text-yellow-300 glow mb-8">💡 Why You Should Purchase LiftMetric</h2>
-    <div class="grid md:grid-cols-2 gap-8 highlight-box text-2xl">
-      <ul class="space-y-4 text-left">
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Full source code included — complete freedom to modify</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Resale & white-label rights — earn from your copy</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>No subscription — one-time payment, lifetime value</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Built with top modern stacks (Next.js, Firebase, Electron)</span>
-        </li>
-      </ul>
-      <ul class="space-y-4 text-left">
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Designed like an esports game UI — flashy, attractive, elite</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Real-time sync across judges and athlete terminals</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>Free support for setup within 1st week after purchase</span>
-        </li>
-        <li class="flex items-start gap-3">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
-          </svg>
-          <span>No external dependencies or licensing traps</span>
-        </li>
-      </ul>
-    </div>
-  </section>
 
-  <!-- Features -->
+
+ <section class="max-w-5xl mx-auto px-6 text-center">
+  <h2 class="text-4xl font-bold text-yellow-300 glow mb-8">💡 Why You Should Purchase LiftMetric</h2>
+  <div class="grid md:grid-cols-2 gap-8 highlight-box text-2xl">
+    <ul class="space-y-4 text-left">
+      <li class="flex items-start gap-3">
+        <!-- Barbell SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Full source code included — complete freedom to modify</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Resale & white-label rights — earn from your copy</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>No subscription — one-time payment, lifetime value</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Built with top modern stacks (Next.js, Firebase, Electron)</span>
+      </li>
+    </ul>
+
+    <!-- Right list -->
+    <ul class="space-y-4 text-left">
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Designed like an esports game UI — flashy, attractive, elite</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Real-time sync across judges and athlete terminals</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>Free support for setup within 1st week after purchase</span>
+      </li>
+      <li class="flex items-start gap-3">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"
+             class="w-6 h-6 text-red-500 neon-red-black flex-shrink-0" fill="currentColor">
+          <rect x="2" y="24" width="6" height="16" />
+          <rect x="8" y="22" width="4" height="20" />
+          <rect x="12" y="20" width="4" height="24" />
+          <rect x="16" y="18" width="4" height="28" />
+          <rect x="20" y="30" width="24" height="4" />
+          <rect x="44" y="18" width="4" height="28" />
+          <rect x="48" y="20" width="4" height="24" />
+          <rect x="52" y="22" width="4" height="20" />
+          <rect x="56" y="24" width="6" height="16" />
+        </svg>
+        <span>No external dependencies or licensing traps</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
   <section class="max-w-6xl mx-auto px-6">
     <h2 class="text-4xl font-bold text-center mb-10 text-red-400 glow">🚀 Key Highlights</h2>
+     <div class="mb-6 md:hidden flex justify-center">
+    <img src="sss.png" alt="LiftMetric Screenshot" class="rounded-xl shadow-2xl w-full max-w-md" />
+  </div>
     <div class="grid md:grid-cols-2 gap-12 text-2xl leading-relaxed highlight-box">
       <div>
         <ul class="space-y-4">
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Built with Next.js 14, React, Firebase, and Electron</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+             <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Real-time scoring + live updating leaderboard</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Unlimited matches per user with Firebase isolation</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Esports-inspired design with animations & pixel fonts</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+             <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>White-label license – fully brandable + resale rights</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+             <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Firebase Authentication for secure access</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Auto-calculated scores from snatch + clean & jerk</span>
           </li>
           <li class="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-red-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2l4 -4" />
+            <div class="flex items-center gap-1">
+            <!-- Dumbbell SVG -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" class="w-6 h-6 text-red-500 neon-red-black" fill="currentColor">
+              <rect x="2" y="24" width="6" height="16" />
+              <rect x="8" y="22" width="4" height="20" />
+              <rect x="12" y="20" width="4" height="24" />
+              <rect x="16" y="18" width="4" height="28" />
+              <rect x="20" y="30" width="24" height="4" />
+              <rect x="44" y="18" width="4" height="28" />
+              <rect x="48" y="20" width="4" height="24" />
+              <rect x="52" y="22" width="4" height="20" />
+              <rect x="56" y="24" width="6" height="16" />
             </svg>
+           
+          </div>
             <span>Designed for desktop, tablet, and mobile devices</span>
           </li>
         </ul>
       </div>
-      <div class="flex items-center justify-center">
-        <img src="sss.png" alt="LiftMetric Screenshot" class="rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500" />
-      </div>
+      <div class="hidden md:flex items-center justify-center">
+      <img src="sss.png" alt="LiftMetric Screenshot" class="rounded-xl shadow-2xl hover:scale-105 transition-transform duration-500" />
+    </div>
     </div>
   </section>
 
-  <!-- Bonus -->
+  
   <section class="text-white text-center px-4">
     <h3 class="text-4xl font-bold mb-6 glow">🎁 Premium Bonuses Included</h3>
     <div class="space-y-3 text-2xl highlight-box mx-auto max-w-2xl">
@@ -441,7 +632,6 @@
     </div>
   </section>
 
-  <!-- FAQ -->
   <section class="max-w-4xl mx-auto px-6 text-center">
     <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">❓ Frequently Asked Questions</h2>
     <div class="highlight-box rounded-xl p-6 bg-black/50 text-left text-2xl">
@@ -463,12 +653,11 @@
       </details>
       <details>
         <summary>How do I get support?</summary>
-        <p>We offer one-on-one onboarding and dedicated support for your first event.</p>
+        <p>We offer free setup within a week</p>
       </details>
     </div>
   </section>
 
-<!-- Contact / Support -->
 <section class="max-w-4xl mx-auto px-6 text-center">
   <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">📞 Contact & Support</h2>
   <p class="mb-3 text-lg text-gray-300">Have questions or want a demo? Reach out to us anytime!</p>
@@ -479,7 +668,6 @@
    class="neon-button text-white py-4 px-10 rounded-full text-2xl font-extrabold shadow-xl transition transform hover:scale-105">Email Support</a>
 </section>
 
-<!-- Payment Badges / Trust Signals -->
 <section class="max-w-4xl mx-auto px-6  py-1 text-center">
    <h2 class="text-4xl font-bold mb-8 text-yellow-300 glow">💵 Payment Methods</h2>
   <div class="payment-badges flex justify-center gap-4 flex-wrap items-center">
@@ -490,7 +678,7 @@
 </section>
 <br>
 <br>
-<!-- License & Terms -->
+
 <section class="max-w-4xl mx-auto px-10  py-1 text-center">
   <p class="text-gray-400 text-lg mb-4">
     <a href="https://drive.google.com/file/d/1x7avUwFNwPPymqmdO4h4ESSuVQ0hauFR/view?usp=sharing" target="_blank" class="underline hover:text-red-400">
@@ -499,7 +687,7 @@
   </p>
 </section>
 
-<!-- Buy Section -->
+
 <section id="buy" class="section text-center mb-6">
   <h2 class="text-5xl sm:text-4xl font-bold mb-4 text-red-400 glow">Get LiftMetric Now</h2>
   <p class="mb-4 text-lg text-gray-200">Unlock lifetime access + full source code and resale rights. Limited offer.</p>
@@ -523,13 +711,12 @@
 </section>
 
 
-  <!-- Footer -->
   <footer class="text-center py-6 text-gray-400 text-sm border-t border-gray-700">
     © 2025 LiftMetric. Built with ❤️ by Shalini Archana Vidanaarachchi.
   </footer>
 
   <script>
-    // Initialize Lucide icons (if needed)
+   
     lucide.createIcons();
   </script>
 
